@@ -31,9 +31,11 @@ zephyr_library_sources_ifdef(CONFIG_PLATFORM_EC_BATTERY
   "battery_present.c")
 zephyr_library_sources_ifdef(CONFIG_PLATFORM_EC_USB_POWER_DELIVERY
   "${PLATFORM_EC_BASEBOARD}/usb_pd_policy.c")
-zephyr_library_sources_ifdef(CONFIG_PLATFORM_EC_USBC
+zephyr_library_sources_ifdef(CONFIG_USBC_STACK
   "${PLATFORM_EC_BOARD}/usbc_config.c"
   "${PLATFORM_EC_BOARD}/fw_config.c")
 zephyr_library_sources_ifdef(CONFIG_PLATFORM_EC_CHARGE_MANAGER
   "${PLATFORM_EC_BOARD}/charger.c"
   "${PLATFORM_EC}/common/math_util.c")
+
+zephyr_library_sources_ifdef(CONFIG_USBC_STACK "usbc.c")

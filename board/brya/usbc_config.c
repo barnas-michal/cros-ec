@@ -36,8 +36,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define CPRINTF(format, args...) cprintf(CC_USBPD, format, ##args)
-#define CPRINTS(format, args...) cprints(CC_USBPD, format, ##args)
+#define CPRINTF(format, args...) cprintf(CC_COMMAND, format, ##args)
+#define CPRINTS(format, args...) cprints(CC_COMMAND, format, ##args)
 
 #ifdef CONFIG_ZEPHYR
 enum ioex_port { IOEX_C0_NCT38XX = 0, IOEX_C2_NCT38XX, IOEX_PORT_COUNT };
@@ -400,7 +400,7 @@ static void board_tcpc_init(void)
 		gpio_enable_interrupt(GPIO_USB_C1_BC12_INT_ODL);
 #else
 	} else {
-		tcpc_config[1].irq_gpio.port = NULL;
+		/*tcpc_config[1].irq_gpio.port = NULL;*/
 #endif /* !CONFIG_ZEPHYR */
 	}
 }

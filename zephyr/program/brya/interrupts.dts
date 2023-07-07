@@ -96,30 +96,30 @@
 			flags = <GPIO_INT_EDGE_BOTH>;
 			handler = "throttle_ap_prochot_input_interrupt";
 		};
-		int_usb_c0_bc12: usb_c0_bc12 {
-			irq-pin = <&gpio_usb_c0_bc12_int_odl>;
-			flags = <GPIO_INT_EDGE_FALLING>;
-			handler = "bc12_interrupt";
-		};
-		int_usb_c1_bc12: usb_c1_bc12 {
-			irq-pin = <&gpio_usb_c1_bc12_int_odl>;
-			flags = <GPIO_INT_EDGE_FALLING>;
-			handler = "bc12_interrupt";
-		};
-		int_usb_c2_bc12: usb_c2_bc12 {
-			irq-pin = <&gpio_usb_c2_bc12_int_odl>;
-			flags = <GPIO_INT_EDGE_FALLING>;
-			handler = "bc12_interrupt";
-		};
-		int_usb_c0_rt: usb_c0_rt {
-			irq-pin = <&usb_c0_rt_int_odl>;
-			flags = <GPIO_INT_EDGE_FALLING>;
-			handler = "retimer_interrupt";
-		};
-		int_usb_c2_rt: usb_c2_rt {
-			irq-pin = <&usb_c2_rt_int_odl>;
-			flags = <GPIO_INT_EDGE_FALLING>;
-			handler = "retimer_interrupt";
-		};
+		// int_usb_c0_bc12: usb_c0_bc12 {
+		// 	irq-pin = <&gpio_usb_c0_bc12_int_odl>;
+		// 	flags = <GPIO_INT_EDGE_FALLING>;
+		// 	handler = "bc12_interrupt";
+		// };
+		// int_usb_c1_bc12: usb_c1_bc12 {
+		// 	irq-pin = <&gpio_usb_c1_bc12_int_odl>;
+		// 	flags = <GPIO_INT_EDGE_FALLING>;
+		// 	handler = "bc12_interrupt";
+		// };
+		// int_usb_c2_bc12: usb_c2_bc12 {
+		// 	irq-pin = <&gpio_usb_c2_bc12_int_odl>;
+		// 	flags = <GPIO_INT_EDGE_FALLING>;
+		// 	handler = "bc12_interrupt";
+		// };
+		// int_usb_c0_rt: usb_c0_rt {
+		// 	irq-pin = <&usb_c0_rt_int_odl>;
+		// 	flags = <GPIO_INT_EDGE_FALLING>;
+		// 	handler = "retimer_interrupt";
+		// };
+		// int_usb_c2_rt: usb_c2_rt {
+		// 	irq-pin = <&usb_c2_rt_int_odl>;
+		// 	flags = <GPIO_INT_EDGE_FALLING>;
+		// 	handler = "retimer_interrupt";
+		// };
 	};
 };
