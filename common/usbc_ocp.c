@@ -15,8 +15,8 @@
 #include "usbc_ocp.h"
 #include "util.h"
 
-#define CPRINTF(format, args...) cprintf(CC_USBPD, format, ##args)
-#define CPRINTS(format, args...) cprints(CC_USBPD, format, ##args)
+#define CPRINTF(format, args...) ccprintf(format, ##args)
+#define CPRINTS(format, args...) ccprintf(format, ##args)
 
 /*
  * Number of seconds until a latched-off port is re-enabled for sourcing after
@@ -92,7 +92,7 @@ int usbc_ocp_add_event(int port)
 	atomic_clear_bits(&snk_connected_ports, 1 << port);
 
 	if (oc_event_cnt_tbl[port] >= OCP_MAX_CNT) {
-		CPRINTS("C%d: OC event limit reached! "
+		CPRINTS("##### C%d: OC event limit reached! "
 			"Source path disabled until physical disconnect.",
 			port);
 		pd_power_supply_reset(port);
@@ -102,6 +102,7 @@ int usbc_ocp_add_event(int port)
 		 * at least the time we need to hard reset and make a new
 		 * contract.
 		 */
+		CPRINTS("##### C%d: hard reset", port);
 		pd_send_hard_reset(port);
 		delay = PD_T_SRC_RECOVER + 100 * MSEC;
 	} else {
@@ -110,6 +111,7 @@ int usbc_ocp_add_event(int port)
 		 * queueing up the alert for after it completes and a new
 		 * contract is in place
 		 */
+		CPRINTS("##### C%d: error recovery", port);
 		pd_set_error_recovery(port);
 		delay = PD_T_ERROR_RECOVERY + 100 * MSEC;
 	}

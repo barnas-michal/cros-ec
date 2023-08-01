@@ -602,6 +602,7 @@ int tcpci_tcpm_set_snk_ctrl(int port, int enable)
 	int cmd = enable ? TCPC_REG_COMMAND_SNK_CTRL_HIGH :
 			   TCPC_REG_COMMAND_SNK_CTRL_LOW;
 
+	ccprintf("### Snk enable: %d ###\n", enable);
 	return tcpc_write(port, TCPC_REG_COMMAND, cmd);
 }
 
@@ -621,6 +622,7 @@ int tcpci_tcpm_set_src_ctrl(int port, int enable)
 	int cmd = enable ? TCPC_REG_COMMAND_SRC_CTRL_HIGH :
 			   TCPC_REG_COMMAND_SRC_CTRL_LOW;
 
+	ccprintf("### Src enable: %d ###\n", enable);
 	return tcpc_write(port, TCPC_REG_COMMAND, cmd);
 }
 

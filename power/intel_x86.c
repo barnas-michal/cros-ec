@@ -58,6 +58,8 @@ static int power_up_inhibited;
  */
 static int is_power_up_inhibited(void)
 {
+	return 1;
+
 	/* Defaulting to power button not pressed. */
 	const int power_button_pressed = 0;
 

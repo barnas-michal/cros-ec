@@ -1,10 +1,10 @@
 #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/i2c.h>
-#include <zephyr/drivers/usb_c/tcpci_priv.h>
+// #include <zephyr/drivers/usb_c/tcpci_priv.h>
 #include <zephyr/logging/log.h>
 #include <zephyr/shell/shell.h>
-#include <zephyr/usb_c/tcpci.h>
+// #include <zephyr/usb_c/tcpci.h>
 #include <zephyr/usb_c/usbc.h>
 
 bool policy_cb_check(const struct device *dev,
@@ -54,6 +54,39 @@ uint32_t policy_cb_get_rdo(const struct device *dev)
 	return rdo.raw_value;
 }
 
+int port1_policy_cb_src_en(const struct device *dev, bool en)
+{
+	// source_ctrl_set(en ? SOURCE_5V : SOURCE_0V);
+
+	return 0;
+}
+
+#define SOURCE_PDO(node_id, prop, idx)	(DT_PROP_BY_IDX(node_id, prop, idx)),
+uint32_t src_caps[DT_PROP_LEN(DT_NODELABEL(usbc_port1), source_pdos)] = {DT_FOREACH_PROP_ELEM(DT_NODELABEL(usbc_port1), source_pdos, SOURCE_PDO)};
+uint32_t src_cap_cnt = DT_PROP_LEN(DT_NODELABEL(usbc_port1), source_pdos);
+
+int port1_policy_cb_get_src_caps(const struct device *dev,
+			const uint32_t **pdos, uint32_t *num_pdos)
+{
+	struct port1_data_t *dpm_data = usbc_get_dpm_data(dev);
+
+	*pdos = src_caps;
+	*num_pdos = src_cap_cnt;
+
+	return 0;
+}
+
+static enum usbc_snk_req_reply_t port1_policy_cb_check_sink_request(const struct device *dev,
+					const uint32_t request_msg)
+{
+	return SNK_REQUEST_VALID;
+}
+
+static bool port1_policy_cb_is_ps_ready(const struct device *dev)
+{
+	return true;
+}
+
 #define USBC_START(node)                                                  \
 	{                                                                 \
 		const struct device *usbc_port;                           \
@@ -63,7 +96,11 @@ uint32_t policy_cb_get_rdo(const struct device *dev)
 			ret |= -EIO;                                      \
 		}                                                         \
 		usbc_set_policy_cb_check(usbc_port, policy_cb_check);     \
-		usbc_set_policy_cb_get_rdo(usbc_port, policy_cb_get_rdo); \
+		/*usbc_set_policy_cb_get_rdo(usbc_port, policy_cb_get_rdo);*/ \
+		usbc_set_policy_cb_src_en(usbc_port, port1_policy_cb_src_en); \
+		usbc_set_policy_cb_get_src_caps(usbc_port, port1_policy_cb_get_src_caps);\
+		usbc_set_policy_cb_check_sink_request(usbc_port, port1_policy_cb_check_sink_request); \
+		usbc_set_policy_cb_is_ps_ready(usbc_port, port1_policy_cb_is_ps_ready); \
 		ret |= usbc_start(usbc_port);                             \
 	}
 
@@ -76,3 +113,11 @@ static int cmd_startpd(const struct shell *sh, size_t argc, char **argv)
 	return ret;
 }
 SHELL_CMD_REGISTER(startpd, NULL, "Start PD communication", cmd_startpd);
+
+int startpd_fn()
+{
+	return cmd_startpd(NULL, 0, NULL);
+}
+
+#define MY_INIT_PRIO 99
+SYS_INIT(startpd_fn, APPLICATION, MY_INIT_PRIO);

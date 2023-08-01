@@ -230,7 +230,7 @@
 		 * "named-gpios". This is the Zephyr preferred style,
 		 * the "named-gpios" node will be dealt with at a later date.
 		 */
-		irq-gpios = <&gpiof 5 GPIO_ACTIVE_LOW>;
+		irq-gpios = <&gpiof 5 0>;
 	};
 };
 
@@ -269,9 +269,9 @@
 	status = "okay";
 };
 
-/ {
-	i2c-trace {
-		compatible = "zephyr,i2c-trace";
-		devices = < &tcpc_port1 >, < &tcpc_port1 >, <&tcpc_port1 >;
-	};
-};
+// / {
+// 	i2c-trace {
+// 		compatible = "zephyr,i2c-trace";
+// 		devices = < &tcpc_port1 >, < &tcpc_port1 >, <&tcpc_port1 >;
+// 	};
+// };
