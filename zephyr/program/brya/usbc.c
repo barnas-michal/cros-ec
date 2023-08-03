@@ -102,6 +102,9 @@ static bool port1_policy_cb_is_ps_ready(const struct device *dev)
 		usbc_set_policy_cb_check_sink_request(usbc_port, port1_policy_cb_check_sink_request); \
 		usbc_set_policy_cb_is_ps_ready(usbc_port, port1_policy_cb_is_ps_ready); \
 		ret |= usbc_start(usbc_port);                             \
+		usbc_request(usbc_port, REQUEST_NOP); \
+		usbc_request(usbc_port, REQUEST_NOP); \
+		usbc_request(usbc_port, REQUEST_NOP); \
 	}
 
 static int cmd_startpd(const struct shell *sh, size_t argc, char **argv)

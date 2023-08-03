@@ -15,7 +15,7 @@
 			reg = <1>;
 			tcpc = <&tcpc_port1>;
 			vbus = <&tcpc_port1_vbus>;
-			ppc = <&ppc_port1>;
+			// ppc = <&ppc_port1>;
 			power-role = "sink";
 			sink-pdos = <PDO_FIXED(5000, 100, 0)>;
 			source-pdos = <PDO_FIXED(5000, 500, 0)>;

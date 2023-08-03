@@ -232,6 +232,12 @@
 		 */
 		irq-gpios = <&gpiof 5 0>;
 	};
+	// ppc_port1: nx20p348x@72 {
+	// 	compatible = "nxp,nx20p348x";
+	// 	status = "okay";
+	// 	reg = <0x72>;
+	// 	irq-gpios = <&gpiof 5 0>;
+	// };
 };
 
 &i2c_ctrl6 {
